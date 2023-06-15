@@ -44,7 +44,18 @@ public function ver($id){
 
 public function eliminar($id) {
 
-    return response("Borrar");
+    $datosProducto=Producto::find($id);
+
+    if($datosProducto){
+        $rutaArchivo=base_path('public').$datosProducto->imagen;
+
+        if(file_exists($rutaArchivo)){
+            unlink($rutaArchivo);
+        }
+    $datosProducto->delete();
+    }
+
+    return response()->json("Registro Borrado");
 
     
 }
